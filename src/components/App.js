@@ -1,40 +1,15 @@
 import "./App.css";
-import logo from "./images/logo.svg"
+import Header from "./Header";
+import Main from "./Main";
+import Footer from "./Footer";
 
 function App() {
   return (
     <div className="App">
       <div className="page">
-        <header className="header">
-          <img src={logo} alt="Логотип" className="header__logo" />
-        </header>
-        <main className="content">
-          <section className="profile">
-            <div className="profile__user">
-              <button className="button button_action_edit-photo">
-                <div className="profile__photo-edit" />
-                <img src="#" alt="Фото профиля" className="profile__photo" />
-              </button>
-              <div className="profile__info">
-                <div className="profile__header">
-                  <h1 className="profile__name">Жак-Ив Кусто</h1>
-                  <button type="button" className="button button_action_edit" aria-label="Редактировать"></button>
-                </div>
-                <p className="profile__desc">Исследователь океана</p>
-              </div>
-            </div>
-            <button type="button" className="button button_action_add" aria-label="Добавить"></button>
-          </section>
-          <section className="elements">
-            <ul className="elements__list">
-            </ul>
-          </section>
-        </main>
-        <footer className="footer">
-          <p className="footer__copy">
-            © 2020 Владимир Чистый
-          </p>
-        </footer>
+        <Header />
+        <Main />
+        <Footer />
         <div className="popup">
           <form className="popup__form modal" name="profile" noValidate>
             <div className="popup__container">
