@@ -1,4 +1,4 @@
-function PopupWithImage(props) {
+function ImagePopup(props) {
   return(
     <div className="popup">
       <div className={props.card.isOpen ? "popup__image modal modal_is-opened" : "popup__image modal"}>
@@ -13,4 +13,4 @@ function PopupWithImage(props) {
   );
 };
 
-export default PopupWithImage;
+export default ImagePopup;
