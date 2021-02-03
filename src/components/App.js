@@ -14,26 +14,26 @@ function App() {
 
   function handleEditAvatarClick() {
     setAvatarPopupState(true);
-  };
+  }
 
   function handleEditProfileClick() {
     setProfilePopupState(true);
-  };
+  }
 
   function handleAddPlaceClick() {
     setPlacePopupState(true);
-  };
+  }
 
   function closeAllPopups() {
     setAvatarPopupState(false);
     setProfilePopupState(false);
     setPlacePopupState(false);
     setSelectedCard({item: {}, isOpen: false});
-  };
+  }
 
   function handleCardClick(card) {
     setSelectedCard({item: card, isOpen: true});
-  };
+  }
 
   return (
     <div className="App">

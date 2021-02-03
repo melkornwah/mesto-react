@@ -3,9 +3,9 @@ import api from "../utils/Api";
 import Card from "./Card";
 
 function Main(props) {  
-  const [userAvatar, setUserAvatar] = React.useState([]);
-  const [userName, setUserName] = React.useState([]);
-  const [userDescription, setUserDescription] = React.useState([]);
+  const [userAvatar, setUserAvatar] = React.useState("");
+  const [userName, setUserName] = React.useState("");
+  const [userDescription, setUserDescription] = React.useState("");
   const [cardsArray, setCardsArray] = React.useState([]);
 
   React.useEffect(() => {
@@ -17,10 +17,7 @@ function Main(props) {
       })
       .catch(err => {
         console.log(err);
-      })  
-  }, []);
-
-  React.useEffect(() => {
+      })
     api.loadInitialCards()
       .then(items => {
         const cards = [];
@@ -32,7 +29,7 @@ function Main(props) {
       .catch(err => {
         console.log(err);
       })
-  }, [props])
+  }, [props]);
 
   return(
     <main className="content">
