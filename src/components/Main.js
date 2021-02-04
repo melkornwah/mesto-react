@@ -29,7 +29,7 @@ function Main(props) {
       .catch(err => {
         console.log(err);
       })
-  }, [props]);
+  }, []);
 
   return(
     <main className="content">
