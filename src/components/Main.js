@@ -7,8 +7,6 @@ function Main(props) {
   const user = React.useContext(userContext);
 
   const [cards, setCards] = React.useState([]);
-
-  const cardsArray = [];
   
   React.useEffect(() => {
     api.loadInitialCards()
