@@ -1,35 +1,38 @@
 import React from "react";
+import { userContext } from "../context/CurrentUserContext";
 import api from "../utils/Api";
 import Card from "./Card";
 
 function Main(props) {  
-  const [userAvatar, setUserAvatar] = React.useState("");
-  const [userName, setUserName] = React.useState("");
-  const [userDescription, setUserDescription] = React.useState("");
-  const [cardsArray, setCardsArray] = React.useState([]);
+  const user = React.useContext(userContext);
 
+  const [cards, setCards] = React.useState([]);
+
+  const cardsArray = [];
+  
   React.useEffect(() => {
-    api.getUserInfo()
-      .then(user => {
-        setUserAvatar(user.avatar);
-        setUserName(user.name);
-        setUserDescription(user.about);
-      })
-      .catch(err => {
-        console.log(err);
-      })
     api.loadInitialCards()
       .then(items => {
-        const cards = [];
         items.forEach(card => {
-          cards.push(<Card item={card} key={card._id} onImageClick={props.onCardClick} />);
+          cardsArray.push(
+          <Card item={card} 
+          key={card._id} 
+          onImageClick={props.onCardClick} 
+          onLikeClick={handleCardLike} />
+          );
         })
-        setCardsArray(cards);
+        setCards(cardsArray);
       })
       .catch(err => {
         console.log(err);
       })
   }, []);
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === user._id);
+
+    console.log(isLiked);
+  }
 
   return(
     <main className="content">
@@ -38,22 +41,22 @@ function Main(props) {
           <button className="button button_action_edit-photo" onClick={props.onEditAvatar}>
             <div className="profile__photo-edit" />
             <div className="profile__photo" style={{
-              backgroundImage: `url(${userAvatar})`
+              backgroundImage: `url(${user.avatar})`
             }} />
           </button>
           <div className="profile__info">
             <div className="profile__header">
-              <h1 className="profile__name">{userName}</h1>
+              <h1 className="profile__name">{user.name}</h1>
               <button type="button" className="button button_action_edit" aria-label="Редактировать" onClick={props.onEditProfile}></button>
             </div>
-            <p className="profile__desc">{userDescription}</p>
+            <p className="profile__desc">{user.about}</p>
           </div>
         </div>
         <button type="button" className="button button_action_add" aria-label="Добавить" onClick={props.onAddPlace}></button>
       </section>
       <section className="elements">
         <ul className="elements__list">
-          {cardsArray}
+          {cards}
         </ul>
       </section>
     </main>
