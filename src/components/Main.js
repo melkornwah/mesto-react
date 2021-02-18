@@ -4,27 +4,41 @@ import api from "../utils/Api";
 import Card from "./Card";
 
 function Main(props) {  
-  const user = React.useContext(userContext);
-
   const [cards, setCards] = React.useState([]);
+
+  const user = React.useContext(userContext);
   
   React.useEffect(() => {
     api.loadInitialCards()
       .then(items => {
-        items.forEach(card => {
-          cardsArray.push(
-          <Card item={card} 
-          key={card._id} 
-          onImageClick={props.onCardClick} 
-          onLikeClick={handleCardLike} />
-          );
-        })
-        setCards(cardsArray);
+        setCards(items);
       })
       .catch(err => {
         console.log(err);
       })
-  }, []);
+  }, [user]);
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === user._id);
+
+    api.changeLikeCardStatus(card, isLiked)
+      .then((newCard) => {
+      // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
+        const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+      // Обновляем стейт
+        setCards(newCards);
+      });
+  }
+
+  function handleCardDelete(card) {
+    api.deleteCard(card)
+      .then(() => {
+        const newCards = cards.filter((c) => {
+          return !(c._id === card._id);
+        })
+        setCards(newCards);
+      })
+  }
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === user._id);
@@ -54,7 +68,15 @@ function Main(props) {
       </section>
       <section className="elements">
         <ul className="elements__list">
-          {cards}
+          {cards.map(card => (
+            <Card
+              item={card} 
+              key={card._id} 
+              onImageClick={props.onCardClick} 
+              onLikeClick={handleCardLike}
+              onDeleteClick={handleCardDelete}
+            />
+          ))}
         </ul>
       </section>
     </main>

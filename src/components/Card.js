@@ -10,6 +10,10 @@ function Card(props) {
     props.onLikeClick(props.item);
   }
 
+  function handleDeleteClick() {
+    props.onDeleteClick(props.item);
+  }
+
   const currentUser = React.useContext(userContext);
 
   const isLiked = props.item.likes.some(i => i._id === currentUser._id);
@@ -31,7 +35,7 @@ function Card(props) {
           <p className="element__like-counter">{props.item.likes.length}</p>
         </div>
       </div>
-      {isOwn && <button type="button" className="button button_action_delete" aria-label="Удалить"></button>}
+      {isOwn && <button type="button" className="button button_action_delete" aria-label="Удалить" onClick={handleDeleteClick}></button>}
     </li>
   );    
 }
