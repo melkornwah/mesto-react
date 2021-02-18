@@ -18,12 +18,6 @@ class Api {
       })
   }
 
-  getCard() {
-    return this._getRequestResult(`${this._baseURL}/cards`, {
-      headers: this._headers
-    });
-  }
-
   loadInitialCards() {
     return this._getRequestResult(`${this._baseURL}/cards`, {
       headers: this._headers
@@ -65,18 +59,18 @@ class Api {
     });
   }
 
-  likeCard(card) {
-    return this._getRequestResult(`${this._baseURL}/cards/likes/${card._id}`, {
-      method: "PUT",
-      headers: this._headers
-    });
-  }
-
-  dislikeCard(card) {
-    return this._getRequestResult(`${this._baseURL}/cards/likes/${card._id}`, {
-      method: "DELETE",
-      headers: this._headers
-    });
+  changeLikeCardStatus(card, isLiked) {
+    if (isLiked) {
+      return this._getRequestResult(`${this._baseURL}/cards/likes/${card._id}`, {
+        method: "DELETE",
+        headers: this._headers
+      });
+    } else {
+      return this._getRequestResult(`${this._baseURL}/cards/likes/${card._id}`, {
+        method: "PUT",
+        headers: this._headers
+      });
+    }
   }
 
   patchAvatar(image) {
