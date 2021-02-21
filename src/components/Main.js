@@ -1,7 +1,7 @@
-import React from "react";
-import { userContext } from "../context/CurrentUserContext";
-import api from "../utils/Api";
 import Card from "./Card";
+import api from "../utils/Api";
+import { userContext } from "../context/CurrentUserContext";
+import React from "react";
 
 function Main(props) {  
   const [cards, setCards] = React.useState([]);
@@ -23,9 +23,10 @@ function Main(props) {
 
     api.changeLikeCardStatus(card, isLiked)
       .then((newCard) => {
-      // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
-        const newCards = cards.map((c) => c._id === card._id ? newCard : c);
-      // Обновляем стейт
+        const newCards = cards.map(
+          (c) => c._id === card._id ? newCard : c
+          );
+
         setCards(newCards);
       });
   }
@@ -40,17 +41,14 @@ function Main(props) {
       })
   }
 
-  function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === user._id);
-
-    console.log(isLiked);
-  }
-
   return(
     <main className="content">
       <section className="profile">
         <div className="profile__user">
-          <button className="button button_action_edit-photo" onClick={props.onEditAvatar}>
+          <button 
+            className="button button_action_edit-photo" 
+            onClick={props.onEditAvatar}
+          >
             <div className="profile__photo-edit" />
             <div className="profile__photo" style={{
               backgroundImage: `url(${user.avatar})`
@@ -59,12 +57,28 @@ function Main(props) {
           <div className="profile__info">
             <div className="profile__header">
               <h1 className="profile__name">{user.name}</h1>
-              <button type="button" className="button button_action_edit" aria-label="Редактировать" onClick={props.onEditProfile}></button>
+              <button 
+                type="button" 
+                className="button button_action_edit" 
+                aria-label="Редактировать" 
+                onClick={props.onEditProfile}
+              >
+              </button>
             </div>
-            <p className="profile__desc">{user.about}</p>
+            <p 
+              className="profile__desc"
+            >
+              {user.about}
+            </p>
           </div>
         </div>
-        <button type="button" className="button button_action_add" aria-label="Добавить" onClick={props.onAddPlace}></button>
+        <button 
+          type="button" 
+          className="button button_action_add" 
+          aria-label="Добавить" 
+          onClick={props.onAddPlace}
+        >
+        </button>
       </section>
       <section className="elements">
         <ul className="elements__list">

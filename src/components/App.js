@@ -4,6 +4,9 @@ import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
+import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
 import api from "../utils/Api";
 import { userContext } from "../context/CurrentUserContext";
 
@@ -37,6 +40,16 @@ function App() {
     setSelectedCard({item: card, isOpen: true});
   }
 
+  function handleUpdateUser(formData) {
+    api.updateUserInfo(formData)
+      .then(user => {
+        setCurrentUser(user);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
   React.useEffect(() => {
     api.getUserInfo()
       .then(user => {
@@ -53,66 +66,34 @@ function App() {
         <div className="page">
           <Header />
           <Main 
-          onEditAvatar={handleEditAvatarClick} 
-          onEditProfile={handleEditProfileClick} 
-          onAddPlace={handleAddPlaceClick} 
-          onCardClick={handleCardClick}
-          userInfo={currentUser}
+            onEditAvatar={handleEditAvatarClick} 
+            onEditProfile={handleEditProfileClick} 
+            onAddPlace={handleAddPlaceClick} 
+            onCardClick={handleCardClick}
+            userInfo={currentUser}
           />
           <Footer />
-          <PopupWithForm 
-          type="form" 
-          name="profile-photo" 
-          title="Обновить аватар" 
-          button="Сохранить" 
-          isOpen={isEditAvatarPopupOpen} 
-          onClose={closeAllPopups} 
-          children={
-            <>
-              <input type="url" name="link" className="popup__input" id="link-input" placeholder="Ссылка на картинку" required />
-              <span className="popup__input-error" id="link-input-error"></span>
-            </>
-          } 
+          
+          <EditProfilePopup 
+            isOpen={isEditProfilePopupOpen} 
+            onClose={closeAllPopups} 
+            onUpdateUser={handleUpdateUser}
+          />
+          <EditAvatarPopup
+            isOpen={isEditAvatarPopupOpen}
+            onClose={closeAllPopups}
+          />
+          <AddPlacePopup
+            isOpen={isAddPlacePopupOpen}
+            onClose={closeAllPopups}
           />
           <PopupWithForm 
-          type="form" 
-          name="profile" 
-          title="Редактировать профиль" 
-          button="Сохранить" 
-          isOpen={isEditProfilePopupOpen} 
-          onClose={closeAllPopups} 
-          children={
-            <>
-              <input type="text" name="name" className="popup__input" id="name-input" placeholder="Ваше имя" minLength="2" maxLength="40" required />
-              <span className="popup__input-error" id="name-input-error"></span>
-              <input type="text" name="job" className="popup__input" id="job-input" placeholder="Ваш род деятельности" minLength="2" maxLength="200" required />
-              <span className="popup__input-error" id="job-input-error"></span>
-            </>
-          }
-          />
-          <PopupWithForm 
-          type="form" 
-          name="place" 
-          title="Новое место" 
-          button="Добавить" 
-          isOpen={isAddPlacePopupOpen} 
-          onClose={closeAllPopups} 
-          children={
-            <>
-              <input type="text" name="name" className="popup__input" id="name-input" placeholder="Название" minLength="2" maxLength="40" required />
-              <span className="popup__input-error" id="name-input-error"></span>
-              <input type="url" name="link" className="popup__input" id="link-input" placeholder="Ссылка на картинку" required />
-              <span className="popup__input-error" id="link-input-error"></span>
-            </>
-          }
-          />
-          <PopupWithForm 
-          type="confirm" 
-          name="confirmation" 
-          title="Вы уверены?" 
-          button="Да" 
-          isOpen={false} 
-          onClose={closeAllPopups} 
+            type="confirm" 
+            name="confirmation" 
+            title="Вы уверены?" 
+            button="Да" 
+            isOpen={false} 
+            onClose={closeAllPopups} 
           />
           <ImagePopup 
             card={selectedCard}
