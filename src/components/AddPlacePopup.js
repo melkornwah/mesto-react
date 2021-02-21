@@ -19,7 +19,10 @@ function AddPlacePopup(props) {
     props.onCreateCard({
       name: placeValue,
       link: urlValue
-    })
+    });
+
+    setPlaceValue("");
+    setUrlValue("");
   }
 
   return (
@@ -31,43 +34,42 @@ function AddPlacePopup(props) {
       isOpen={props.isOpen} 
       onClose={props.onClose} 
       onSubmit={handleSubmit}
-      children={
-        <>
-          <input 
-            type="text" 
-            name="name" 
-            className="popup__input" 
-            id="name-input" 
-            placeholder="Название" 
-            minLength="2" 
-            maxLength="40" 
-            required
-            value={placeValue}
-            onChange={handlePlaceChange}
-          />
-          <span 
-            className="popup__input-error" 
-            id="name-input-error"
-          >
-          </span>
-          <input 
-            type="url" 
-            name="link" 
-            className="popup__input" 
-            id="link-input" 
-            placeholder="Ссылка на картинку" 
-            required
-            value={urlValue}
-            onChange={handleUrlChange}
-          />
-          <span 
-            className="popup__input-error" 
-            id="link-input-error"
-          >
-          </span>
-        </>
-      }
-    />
+    >
+      <>
+        <input 
+          type="text" 
+          name="name" 
+          className="popup__input" 
+          id="name-input" 
+          placeholder="Название" 
+          minLength="2" 
+          maxLength="40" 
+          required
+          value={placeValue}
+          onChange={handlePlaceChange}
+        />
+        <span 
+          className="popup__input-error" 
+          id="name-input-error"
+        >
+        </span>
+        <input 
+          type="url" 
+          name="link" 
+          className="popup__input" 
+          id="link-input" 
+          placeholder="Ссылка на картинку" 
+          required
+          value={urlValue}
+          onChange={handleUrlChange}
+        />
+        <span 
+          className="popup__input-error" 
+          id="link-input-error"
+        >
+        </span>
+      </>
+    </PopupWithForm>
   );
 }
 

@@ -90,6 +90,9 @@ function App() {
         });
         setCards(newCards);
       })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   function handleCardLike(card) {
@@ -101,7 +104,10 @@ function App() {
           (c) => c._id === card._id ? newCard : c
         );
         setCards(newCards);
-      });
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   React.useEffect(() => {

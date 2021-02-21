@@ -12,8 +12,10 @@ function EditAvatarPopup(props) {
     evt.preventDefault();
 
     props.onUpdateAvatar({
-      avatar: urlValue
+      link: urlValue
     })
+
+    setUrlValue("");
   }
 
   return (
@@ -25,26 +27,25 @@ function EditAvatarPopup(props) {
       isOpen={props.isOpen} 
       onClose={props.onClose} 
       onSubmit={handleSubmit}
-      children={
-        <>
-          <input 
-            type="url" 
-            name="link" 
-            className="popup__input" 
-            id="link-input" 
-            placeholder="Ссылка на картинку" 
-            required
-            value={urlValue}
-            onChange={handleUrlChange}
-          />
-          <span 
-            className="popup__input-error" 
-            id="link-input-error"
-          >
-          </span>
-        </>
-      } 
-    />
+    >
+      <>
+        <input 
+          type="url" 
+          name="link" 
+          className="popup__input" 
+          id="link-input" 
+          placeholder="Ссылка на картинку" 
+          required
+          value={urlValue}
+          onChange={handleUrlChange}
+        />
+        <span 
+          className="popup__input-error" 
+          id="link-input-error"
+        >
+        </span>
+      </>
+    </PopupWithForm>
   );
 }
 
