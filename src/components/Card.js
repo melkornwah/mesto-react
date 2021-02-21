@@ -1,5 +1,5 @@
 import React from "react";
-import { currentUser } from "../context/CurrentUserContext";
+import { currentUser } from "../contexts/CurrentUserContext";
 
 function Card(props) {
   function handleClick() {

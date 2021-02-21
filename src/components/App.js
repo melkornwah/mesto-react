@@ -8,7 +8,7 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import DeleteCardPopup from "./DeleteCardPopup";
 import api from "../utils/api";
-import { currentUser } from "../context/CurrentUserContext";
+import { currentUser } from "../contexts/CurrentUserContext";
 
 function App() {  
   const [isEditAvatarPopupOpen, setAvatarPopupState] = React.useState(false);

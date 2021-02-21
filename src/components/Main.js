@@ -1,5 +1,5 @@
 import Card from "./Card";
-import { currentUser } from "../context/CurrentUserContext";
+import { currentUser } from "../contexts/CurrentUserContext";
 import React from "react";
 
 function Main(props) {  
