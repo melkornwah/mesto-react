@@ -8,6 +8,14 @@ function EditAvatarPopup(props) {
     setUrlValue(evt.target.value);
   }
 
+  function handleSubmit(evt) {
+    evt.preventDefault();
+
+    props.onUpdateAvatar({
+      avatar: urlValue
+    })
+  }
+
   return (
     <PopupWithForm 
       type="form" 
@@ -16,6 +24,7 @@ function EditAvatarPopup(props) {
       button="Сохранить" 
       isOpen={props.isOpen} 
       onClose={props.onClose} 
+      onSubmit={handleSubmit}
       children={
         <>
           <input 

@@ -13,6 +13,15 @@ function AddPlacePopup(props) {
     setUrlValue(evt.target.value);
   }
 
+  function handleSubmit(evt) {
+    evt.preventDefault();
+
+    props.onCreateCard({
+      name: placeValue,
+      link: urlValue
+    })
+  }
+
   return (
     <PopupWithForm 
       type="form" 
@@ -21,6 +30,7 @@ function AddPlacePopup(props) {
       button="Добавить" 
       isOpen={props.isOpen} 
       onClose={props.onClose} 
+      onSubmit={handleSubmit}
       children={
         <>
           <input 

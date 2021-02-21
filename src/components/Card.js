@@ -1,5 +1,5 @@
 import React from "react";
-import { userContext } from "../context/CurrentUserContext";
+import { currentUser } from "../context/CurrentUserContext";
 
 function Card(props) {
   function handleClick() {
@@ -14,11 +14,11 @@ function Card(props) {
     props.onDeleteClick(props.item);
   }
 
-  const currentUser = React.useContext(userContext);
+  const user = React.useContext(currentUser);
 
-  const isLiked = props.item.likes.some(i => i._id === currentUser._id);
+  const isLiked = props.item.likes.some(i => i._id === user._id);
 
-  const isOwn = props.item.owner._id === currentUser._id;
+  const isOwn = props.item.owner._id === user._id;
 
   return(
     <li className="element">

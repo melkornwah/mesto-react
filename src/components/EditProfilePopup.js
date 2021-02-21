@@ -1,12 +1,12 @@
 import PopupWithForm from "./PopupWithForm";
-import { userContext } from "../context/CurrentUserContext";
+import { currentUser } from "../context/CurrentUserContext";
 import React from "react";
 
 function EditProfilePopup(props) {
   const [nameValue, setNameValue] = React.useState("");
   const [aboutValue, setAboutValue] = React.useState("");
 
-  const user = React.useContext(userContext);
+  const user = React.useContext(currentUser);
 
   function handleNameChange(evt) {
     setNameValue(evt.target.value);
@@ -16,11 +16,9 @@ function EditProfilePopup(props) {
     setAboutValue(evt.target.value);
   }
 
-  function handleSubmit(e) {
-    // Запрещаем браузеру переходить по адресу формы
-    e.preventDefault();
+  function handleSubmit(evt) {
+    evt.preventDefault();
   
-    // Передаём значения управляемых компонентов во внешний обработчик
     props.onUpdateUser({
       name: nameValue,
       job: aboutValue

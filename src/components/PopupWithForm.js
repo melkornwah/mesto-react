@@ -2,7 +2,8 @@ function PopupWithForm(props) {
   return(
     <div className="popup">
       <form 
-      className={
+        onSubmit={props.onSubmit} 
+        className={
           props.isOpen ? `popup__${props.type} modal modal_is-opened` 
           :
           `popup__${props.type} modal`
@@ -29,7 +30,6 @@ function PopupWithForm(props) {
               type="submit" 
               name="submit" 
               className="popup__button button" 
-              onSubmit={props.onSubmit} 
             >
               {props.button}
             </button>

@@ -73,12 +73,12 @@ class Api {
     }
   }
 
-  patchAvatar(image) {
+  patchAvatar(link) {
     return this._getRequestResult(`${this._baseURL}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        avatar: image.link
+        avatar: link
       })
     });
   }
